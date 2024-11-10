@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+label {
+    margin-top: 10px;
+    display: block;
+}
+
+select, input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+#route-results {
+    margin-top: 20px;
+    display: none;
+}
+
+#error-message {
+    color: red;
+    font-weight: bold;
+}
+
+#route-info {
+    margin-top: 20px;
+}
+
+#route-graph {
+    margin-top: 20px;
+    text-align: center;
+}

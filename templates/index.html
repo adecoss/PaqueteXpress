@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PaqueteXpress - Logistics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</head>
+<body>
+    <h1>PaqueteXpress</h1>
+    <form id="route-form">
+        <h2>Seleccione su Origen:</h2>
+        <label for="origin-department">Departamento:</label>
+        <select id="origin-department">
+            <option value="">Seleccionar</option>
+        </select>
+        
+        <label for="origin-province">Provincia:</label>
+        <select id="origin-province" disabled>
+            <option value="">Seleccionar</option>
+        </select>
+
+        <label for="origin-district">Distrito:</label>
+        <select id="origin-district" disabled>
+            <option value="">Seleccionar</option>
+        </select>
+
+        <h2>Seleccione su Destino:</h2>
+        <label for="destination-department">Departamento:</label>
+        <select id="destination-department">
+            <option value="">Seleccionar</option>
+        </select>
+        
+        <label for="destination-province">Provincia:</label>
+        <select id="destination-province" disabled>
+            <option value="">Seleccionar</option>
+        </select>
+
+        <label for="destination-district">Distrito:</label>
+        <select id="destination-district" disabled>
+            <option value="">Seleccionar</option>
+        </select>
+
+        <h2>Paquete:</h2>
+        <label for="package-weight">
+            Peso (kg): <input type="number" id="package-weight" min="1" max="15" required>
+        </label>
+        <p><strong>Notas:</strong> peso máximo 15 kg</p>
+
+        <button type="submit">Calcular Ruta</button>
+    </form>
+    <div id="route-results">
+        <h3>Resultados:</h3>
+        <div id="route-info"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
