@@ -102,4 +102,34 @@ document.addEventListener('DOMContentLoaded', async function () {
             alert("Error calculating the route");
         }
     };
+
+    function displayRouteInfo(routeInfo, totalTime, graphImage) {
+        const routeInfoElement = document.getElementById('route-info');
+        routeInfoElement.innerHTML = ''; // Clear previous content
+
+        // Display each route segment
+        routeInfo.segments.forEach(segment => {
+            const segmentInfo = document.createElement('div');
+            segmentInfo.innerHTML = `
+                <p><strong>From:</strong> ${segment.from}</p>
+                <p><strong>To:</strong> ${segment.to}</p>
+                <p><strong>Distance:</strong> ${segment.distance} km</p>
+                <p><strong>Time:</strong> ${segment.time}</p>
+            `;
+            routeInfoElement.appendChild(segmentInfo);
+        });
+
+        // Display total distance and time
+        const totalInfo = document.createElement('div');
+        totalInfo.innerHTML = `
+            <p><strong>Total Distance:</strong> ${routeInfo.total_distance} km</p>
+            <p><strong>Total Time:</strong> ${totalTime}</p>
+        `;
+        routeInfoElement.appendChild(totalInfo);
+
+        // Show the graph image
+        const graphImg = document.getElementById('graph-image');
+        graphImg.src = `data:image/png;base64,${graphImage}`;
+        graphImg.style.display = 'block'; // Ensure the image is displayed
+    }
 });
