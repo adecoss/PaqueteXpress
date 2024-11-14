@@ -47,7 +47,7 @@ def calculate_route_api():
 
         # Check if route_info or any expected data is missing
         if route_info is None:
-            return jsonify({"status": "error", "message": "Error calculating route"}), 500
+            return jsonify({"status": "error", "message": "Error Calculando La Ruta"}), 500
         
         # Log route details to verify correctness
         print("Route Info:", route_info)
@@ -63,7 +63,7 @@ def calculate_route_api():
         })
     except Exception as e:
         print("Error in calculate_route_api:", e)
-        return jsonify({"status": "error", "message": "Error calculating route"}), 500
+        return jsonify({"status": "error", "message": "Error Calculando La Ruta"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
