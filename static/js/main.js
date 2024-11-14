@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const destinationDepartment = document.getElementById("destination-department");
     const destinationProvince = document.getElementById("destination-province");
     const destinationDistrict = document.getElementById("destination-district");
+    const routeInfoText = document.getElementById("route-info"); // The textarea for results
 
     // Fetch peru_location.json data from the server
     let peruLocations;
@@ -65,11 +66,18 @@ document.addEventListener('DOMContentLoaded', async function () {
         const departamentoOrigen = document.getElementById("origin-department").value;
         const provinciaOrigen = document.getElementById("origin-province").value;
         const distritoOrigen = document.getElementById("origin-district").value;
+
         const departamentoDestino = document.getElementById("destination-department").value;
         const provinciaDestino = document.getElementById("destination-province").value;
         const distritoDestino = document.getElementById("destination-district").value;
+        
         const weight = parseInt(document.getElementById("package-weight").value, 10);
-    
+        const submitButton = document.querySelector("button[type='submit']");
+
+        // Update the text area with the waiting message
+        console.log('Updating route info...');
+        routeInfoText.value = 'Esperando resultados...';
+
         // Create data payload
         const payload = {
             departamento_origen: departamentoOrigen,
@@ -104,30 +112,18 @@ document.addEventListener('DOMContentLoaded', async function () {
     };
 
     function displayRouteInfo(routeInfo, totalTime, graphImage) {
-        const routeInfoElement = document.getElementById('route-info');
-        routeInfoElement.innerHTML = ''; // Clear previous content
+        const routeInfoText = document.getElementById("route-info");
+        routeInfoText.value = ''; // Clear previous content
 
-        // Display each route segment
+        // Display each route segment in the textarea
         routeInfo.segments.forEach(segment => {
-            const segmentInfo = document.createElement('div');
-            segmentInfo.innerHTML = `
-                <p><strong>From:</strong> ${segment.from}</p>
-                <p><strong>To:</strong> ${segment.to}</p>
-                <p><strong>Distance:</strong> ${segment.distance} km</p>
-                <p><strong>Time:</strong> ${segment.time}</p>
-            `;
-            routeInfoElement.appendChild(segmentInfo);
+            routeInfoText.value += `\nDesde: ${segment.from}\nHacia: ${segment.to}\nDistancia: ${segment.distance} km\nTiempo: ${segment.time}\n\n`;
         });
 
         // Display total distance and time
-        const totalInfo = document.createElement('div');
-        totalInfo.innerHTML = `
-            <p><strong>Total Distance:</strong> ${routeInfo.total_distance} km</p>
-            <p><strong>Total Time:</strong> ${totalTime}</p>
-        `;
-        routeInfoElement.appendChild(totalInfo);
+        routeInfoText.value += `Distancia Total: ${routeInfo.total_distance} km\nTiempo Total: ${totalTime}\n`;
 
-        // Show the graph image
+        // Display the graph image
         const graphImg = document.getElementById('graph-image');
         graphImg.src = `data:image/png;base64,${graphImage}`;
         graphImg.style.display = 'block'; // Ensure the image is displayed
