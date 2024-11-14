@@ -1,11 +1,10 @@
 from flask import jsonify
 import networkx as nx
 import matplotlib
-matplotlib.use('Agg')  # Use Agg backend for non-GUI usage
 import matplotlib.pyplot as plt
-import heapq
+matplotlib.use('Agg')  # Use Agg backend for non-GUI usage
+import heapq,base64
 from io import BytesIO
-import base64
 
 # Load GraphML file
 def load_graph(filepath):
