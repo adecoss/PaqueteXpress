@@ -1,64 +1,126 @@
+/* General */
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
-}
-
-h1 {
-    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
     color: #333;
 }
 
-form {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+h1, h2, h3 {
+    margin: 0;
 }
 
-label {
+a {
+    text-decoration: none;
+    color: #28a745;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Header */
+header {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+}
+
+header .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Main Form */
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+form label {
     margin-top: 10px;
     display: block;
+    font-weight: bold;
 }
 
 select, input {
     width: 100%;
     padding: 8px;
-    margin: 5px 0;
+    margin: 2px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 button {
-    margin-top: 20px;
-    padding: 10px;
+    margin-top: 10px;
+    padding: 10px 20px;
     background-color: #28a745;
     color: white;
     border: none;
-    width: 100%;
+    border-radius: 4px;
     cursor: pointer;
+    width: 100%;
 }
 
 button:hover {
     background-color: #218838;
 }
 
-#route-results {
+/* Results Section */
+.route-results {
     margin-top: 20px;
-    display: none;
-}
-
-#error-message {
-    color: red;
-    font-weight: bold;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 #route-info {
+    width: 100%;
     padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize:both; 
+    box-sizing: border-box;
+}
+#route-graph {
+    margin-top: 20px; 
+    text-align: center;
+}
+
+#graph-image {
+    max-width: 100%;
+    height: auto; 
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    display: block; 
+    padding: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); 
+}
+/* Footer */
+footer {
+    text-align: center;
+    background-color: #222;
+    color: white;
+    padding: 15px 10px;
     margin-top: 20px;
 }
 
-#route-graph {
-    margin-top: 20px;
-    text-align: center;
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: #28a745;
+}
+
+footer a:hover {
+    color: #fff;
 }
