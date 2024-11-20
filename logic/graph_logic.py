@@ -363,12 +363,12 @@ def visualize_flow(graph, flow_segments, max_flow):
 
 
 def calculate_routes_and_flow(graph, origin, destination, package_quantity):
-    # Obtener las primeras 250 rutas más cortas
-    all_paths = list(islice(nx.shortest_simple_paths(graph, source=origin, target=destination, weight='weight'), 250))
+    # Obtener las primeras 350 rutas más cortas
+    all_paths = list(islice(nx.shortest_simple_paths(graph, source=origin, target=destination, weight='weight'), 350))
     
     # Seleccionar rutas únicas con mínima superposición
     selected_routes = []
-    max_common_nodes = 5  # Permitimos máximo 1 nodo común (excepto origen y destino)
+    max_common_nodes = 1  # Permitimos máximo 1 nodo común (excepto origen y destino)
 
     for path in all_paths:
         if len(selected_routes) == 3:  # Limitar a 3 rutas
