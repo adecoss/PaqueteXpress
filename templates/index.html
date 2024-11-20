@@ -13,11 +13,14 @@
         <div class="container">
             <h1>PaqueteXpress</h1>
             <p>Optimiza tu logística de manera eficiente</p>
+            <button id="show-route">Ruta</button>
+            <button id="show-flow">Flujo</button>
         </div>
     </header>
 
     <main>
-        <form id="route-form">
+        <!-- Formulario para la Ruta -->
+        <form id="route-form" style="display: none;">
             <h2>Seleccione su Origen</h2>
             <label for="origin-department">Departamento:</label>
             <select id="origin-department">
@@ -59,10 +62,54 @@
             <button type="submit">Calcular Ruta</button>
         </form>
 
+        <!-- Formulario para el Flujo -->
+        <form id="flow-form" style="display: none;">
+            <h2>Seleccione su Origen</h2>
+            <label for="origin-department">Departamento:</label>
+            <select id="origin-department-flow">
+                <option value="">Seleccionar</option>
+            </select>
+            
+            <label for="origin-province">Provincia:</label>
+            <select id="origin-province-flow" disabled>
+                <option value="">Seleccionar</option>
+            </select>
+
+            <label for="origin-district">Distrito:</label>
+            <select id="origin-district-flow" disabled>
+                <option value="">Seleccionar</option>
+            </select>
+
+            <h2>Seleccione su Destino</h2>
+            <label for="destination-department">Departamento:</label>
+            <select id="destination-department-flow">
+                <option value="">Seleccionar</option>
+            </select>
+            
+            <label for="destination-province">Provincia:</label>
+            <select id="destination-province-flow" disabled>
+                <option value="">Seleccionar</option>
+            </select>
+
+            <label for="destination-district">Distrito:</label>
+            <select id="destination-district-flow" disabled>
+                <option value="">Seleccionar</option>
+            </select>
+
+            <h2>Paquete</h2>
+            <label for="package-quantity">
+                Cantidad de paquetes: <input type="number" id="package-quantity" min="1" max="6000" required>
+            </label>
+            <p class="note"><strong>Nota:</strong> el máximo es de 6000 paquetes</p>
+
+            <button type="submit">Calcular Flujo</button>
+        </form>
+
         <div id="route-results" class="route-results">
             <h3>Resultados</h3>
             <textarea id="route-info" rows="15" cols="72" readonly>Esperando resultados...</textarea>
         </div>
+        
     </main>
     <div id="route-graph">
         <img id="graph-image" style="display:none;" alt="Route Graph">

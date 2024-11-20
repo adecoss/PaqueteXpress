@@ -7,7 +7,14 @@ document.addEventListener('DOMContentLoaded', async function () {
     const destinationDistrict = document.getElementById("destination-district");
     const routeInfoText = document.getElementById("route-info"); // The textarea for results
 
-    // Fetch peru_location.json data from the server
+    const originDepartmentFlow = document.getElementById("origin-department-flow");
+    const originProvinceFlow = document.getElementById("origin-province-flow");
+    const originDistrictFlow = document.getElementById("origin-district-flow");
+    const destinationDepartmentFlow = document.getElementById("destination-department-flow");
+    const destinationProvinceFlow = document.getElementById("destination-province-flow");
+    const destinationDistrictFlow = document.getElementById("destination-district-flow");
+
+    // peru_location.json
     let peruLocations;
     try {
         const response = await fetch('/get_locations');
@@ -17,10 +24,13 @@ document.addEventListener('DOMContentLoaded', async function () {
         return;
     }
 
-    // Populate the department dropdowns
-    for (let department in peruLocations) {
-        originDepartment.innerHTML += `<option value="${department}">${department}</option>`;
-        destinationDepartment.innerHTML += `<option value="${department}">${department}</option>`;
+   // Llenar dropdowns para ambos formularios
+   for (let department in peruLocations) {
+    originDepartment.innerHTML += `<option value="${department}">${department}</option>`;
+    destinationDepartment.innerHTML += `<option value="${department}">${department}</option>`;
+
+    originDepartmentFlow.innerHTML += `<option value="${department}">${department}</option>`;
+    destinationDepartmentFlow.innerHTML += `<option value="${department}">${department}</option>`;
     }
 
     const updateProvinces = (department, selectElement) => {
@@ -41,6 +51,26 @@ document.addEventListener('DOMContentLoaded', async function () {
         selectElement.disabled = !districts.length;
     };
 
+    // Eventos para formulario de Flujo
+    originDepartmentFlow.addEventListener('change', function () {
+        updateProvinces(this.value, originProvinceFlow);
+        originDistrictFlow.disabled = true;
+    });
+
+    originProvinceFlow.addEventListener('change', function () {
+        updateDistricts(originDepartmentFlow.value, this.value, originDistrictFlow);
+    });
+
+    destinationDepartmentFlow.addEventListener('change', function () {
+        updateProvinces(this.value, destinationProvinceFlow);
+        destinationDistrictFlow.disabled = true;
+    });
+
+    destinationProvinceFlow.addEventListener('change', function () {
+        updateDistricts(destinationDepartmentFlow.value, this.value, destinationDistrictFlow);
+    });
+    
+    // Eventos para formulario de Rutas
     originDepartment.addEventListener('change', function () {
         updateProvinces(this.value, originProvince);
         originDistrict.disabled = true;
@@ -57,6 +87,16 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     destinationProvince.addEventListener('change', function () {
         updateDistricts(destinationDepartment.value, this.value, destinationDistrict);
+    });
+
+    document.getElementById("show-route").addEventListener("click", function () {
+        document.getElementById("route-form").style.display = "block";
+        document.getElementById("flow-form").style.display = "none";
+    });
+
+    document.getElementById("show-flow").addEventListener("click", function () {
+        document.getElementById("route-form").style.display = "none";
+        document.getElementById("flow-form").style.display = "block";
     });
 
     document.getElementById("route-form").onsubmit = async function(e) {
@@ -128,4 +168,65 @@ document.addEventListener('DOMContentLoaded', async function () {
         graphImg.src = `data:image/png;base64,${graphImage}`;
         graphImg.style.display = 'block'; // Ensure the image is displayed
     }
+
+    document.getElementById("flow-form").onsubmit = async function(e) {
+        e.preventDefault();
+    
+        const departamentoOrigen = document.getElementById("origin-department-flow").value;
+        const provinciaOrigen = document.getElementById("origin-province-flow").value;
+        const distritoOrigen = document.getElementById("origin-district-flow").value;
+    
+        const departamentoDestino = document.getElementById("destination-department-flow").value;
+        const provinciaDestino = document.getElementById("destination-province-flow").value;
+        const distritoDestino = document.getElementById("destination-district-flow").value;
+        
+        const packageQuantity = parseInt(document.getElementById("package-quantity").value, 10);
+    
+        const payload = {
+            departamento_origen: departamentoOrigen,
+            provincia_origen: provinciaOrigen,
+            distrito_origen: distritoOrigen,
+            departamento_destino: departamentoDestino,
+            provincia_destino: provinciaDestino,
+            distrito_destino: distritoDestino,
+            package_quantity: packageQuantity
+        };
+    
+        try {
+            const response = await fetch("/calculate_flow", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+            if (result.status === "success") {
+                displayFlowInfo(result.flow_info, result.total_flow, result.graph_image);
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Error calculating the flow");
+        }
+    };
+
+    function displayFlowInfo(flowInfo, totalFlow, graphImage) {
+        const routeInfoText = document.getElementById("route-info");
+        routeInfoText.value = ''; // Limpiar contenido previo
+        
+        flowInfo.segments.forEach(segment => {
+            // Crear la cadena de texto con la ruta completa
+            const fullRoute = segment.path.join(' -> ');  // Unir los nodos con ' -> '
+            
+            routeInfoText.value += `Ruta: ${fullRoute}\nFlujo: ${segment.flow} paquetes\n\n`;
+        });
+        
+        routeInfoText.value += `Flujo Total: ${totalFlow} paquetes\n`;
+    
+        // Mostrar la imagen del grafo
+        const graphImg = document.getElementById('graph-image');
+        graphImg.src = `data:image/png;base64,${graphImage}`;
+        graphImg.style.display = 'block';
+    }
+
 });
