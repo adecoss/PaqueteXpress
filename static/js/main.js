@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const destinationDepartment = document.getElementById("destination-department");
     const destinationProvince = document.getElementById("destination-province");
     const destinationDistrict = document.getElementById("destination-district");
-    const routeInfoText = document.getElementById("route-info"); // The textarea for results
+    const routeInfoText = document.getElementById("route-info"); 
 
     const originDepartmentFlow = document.getElementById("origin-department-flow");
     const originProvinceFlow = document.getElementById("origin-province-flow");
