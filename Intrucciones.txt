@@ -1,0 +1,20 @@
+Abrir terminal dentro de la carpeta PaqueteXpress
+
+-Crear el ambiente
+py -3 -m venv .venv
+
+-Activar el ambiente
+.venv\Scripts\activate
+
+-Instalar Flask:
+pip install Flask
+
+-Instalar Dependencias:
+pip install network
+pip install matplotlib
+pip install scipy
+
+-Abrir pagina web:
+python app.py
+
+*Cerrar y abrir denuevo el proyecto en visual studio code si aun no se detenctan los Imports.
