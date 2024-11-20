@@ -63,7 +63,6 @@ def calculate_route_api():
         print("Error in calculate_route_api:", e)
         return jsonify({"status": "error", "message": "Error Calculando La Ruta"}), 500
 
-
 @app.route('/calculate_flow', methods=['POST'])
 def calculate_flow_api():
     try:
@@ -118,7 +117,6 @@ def calculate_flow_api():
     except Exception as e:
         print("Error en calculate_flow_api:", e)
         return jsonify({"status": "error", "message": "Error calculando el flujo"}), 500
-
 
 if __name__ == '__main__':
     app.run(debug=True)
